@@ -12,7 +12,7 @@ public class LavaBlock : MonoBehaviour
         if (_currentCooldown <= 0) {
             PlayerCubes playerCubes = other.GetComponent<PlayerCubes>();
             if (playerCubes != null) {
-                playerCubes.RemoveCubes(1);
+                playerCubes.RemoveCubes(1, false);
                 _currentCooldown = _cooldown;
             }
         }

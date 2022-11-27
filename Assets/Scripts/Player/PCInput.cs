@@ -12,10 +12,10 @@ public class PCInput : MonoBehaviour
         _playerMoove = GetComponent<PlayerMoove>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         float horisontal = Input.GetAxis("Horizontal");
-        _playerMoove.SetMoove(horisontal);
+        _playerMoove.SetHorizontal(horisontal);
     }
 
 

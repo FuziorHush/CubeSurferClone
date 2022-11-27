@@ -51,7 +51,7 @@ public class ScreenInput : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             if (touch.phase == TouchPhase.Moved) {
-                _playerMoove.SetMoove(touch.deltaPosition.x);
+                _playerMoove.SetHorizontal(touch.deltaPosition.x);
             }
         }
     }

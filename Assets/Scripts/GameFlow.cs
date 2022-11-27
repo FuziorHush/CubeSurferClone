@@ -9,6 +9,9 @@ public class GameFlow : MonoBehaviour
 
     [SerializeField] private int _currencyForWin = 0;
 
+    [SerializeField] private PlayerMoove _playerMoove = null;
+    [SerializeField] private float _setPlayerSpeed = 0;//if 0 does not sets
+
     private void Start()
     {
         if (_playerCubes != null) 
@@ -16,6 +19,12 @@ public class GameFlow : MonoBehaviour
 
         if (_finishTrigger != null)
             _finishTrigger.CrossedByPlayer += LevelWin;
+
+        if (_playerMoove != null) {
+            if (_setPlayerSpeed != 0) {
+                _playerMoove.MooveSpeed = _setPlayerSpeed;
+            }
+        }
     }
 
     private void LevelWin()

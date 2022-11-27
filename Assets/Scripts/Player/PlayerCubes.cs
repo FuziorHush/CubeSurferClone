@@ -6,7 +6,12 @@ using UnityEngine.Events;
 public class PlayerCubes : MonoBehaviour
 {
     [SerializeField] private GameObject _cubePrefab = null;
+    [SerializeField] private GameObject _cubeApperEffect = null;
+    [SerializeField] private AudioClip _addCubesSound = null;
+    [SerializeField] private AudioClip _looseCubesSound = null;
+
     private PlayerMoove _playerMoove;
+    private AudioSource _audioSource;
 
     [SerializeField] private int _maxCubes = 20;
     [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();//TODO: SerializeField For Debug
@@ -22,19 +27,20 @@ public class PlayerCubes : MonoBehaviour
     public float CurrentHeight => _currentHeight;
     private float _currentHeight;
 
-    public UnityAction CubeAdded;
-    public UnityAction CubeRemoved;
+    public UnityAction<int> CubeAdded;
+    public UnityAction<int> CubeRemoved;
     public UnityAction OutOfCubes;
 
     private void Awake()
     {
         _playerMoove = GetComponent<PlayerMoove>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         _cubesPool.InitPool(_maxCubes + 10);
-        AddCubes(1);
+        AddCubes(1, false);
     }
 
     private void Update()
@@ -42,17 +48,21 @@ public class PlayerCubes : MonoBehaviour
         CheckDamage();
     }
 
-    public void AddCubes(int numCubes)
+    public void AddCubes(int numCubes, bool playSound = true)
     {
         for (int i = 0; i < numCubes; i++)
         {
             GameObject cube = _cubesPool.GetInactivePoolObject().gameObject;
             cube.transform.localPosition = new Vector3(0, _currentHeight, 0);
+            cube.transform.localRotation = Quaternion.identity;
             _activeCubes.Add(cube);
             _currentHeight += _cubeHeightStep;
+            Instantiate(_cubeApperEffect, cube.transform.position, cube.transform.rotation, cube.transform);
 
-            CubeAdded?.Invoke();
+            CubeAdded?.Invoke(NumCubes);
         }
+        if(playSound)
+        _audioSource.PlayOneShot(_addCubesSound);
     }
 
     public void StoreHit(int numCubes)//Если несколько коллайдеров одновременно сталкиваются с игроком, выбирается тот, который снимет больше всего
@@ -66,8 +76,11 @@ public class PlayerCubes : MonoBehaviour
         }
     }
 
-    public void RemoveCubes(int numCubes)
+    public void RemoveCubes(int numCubes, bool unattach = true, bool playSound = true)
     {
+        if (_activeCubes.Count == 0)
+            return;
+
         if (numCubes > _activeCubes.Count)
             numCubes = _activeCubes.Count;
 
@@ -77,10 +90,16 @@ public class PlayerCubes : MonoBehaviour
         {
             GameObject cube = _activeCubes[0];
             _activeCubes.Remove(cube);
-            cube.GetComponent<PoolElement>().UnattachAndReturnWithDelay(2);
 
-            CubeRemoved?.Invoke();
+            if (unattach)
+                cube.GetComponent<PoolElement>().UnattachAndReturnWithDelay(2);
+            else
+                cube.GetComponent<PoolElement>().ReturnIntoPool();
+
+            CubeRemoved?.Invoke(NumCubes);
         }
+        if (playSound)
+            _audioSource.PlayOneShot(_looseCubesSound);
 
         if (_activeCubes.Count == 0) {
             OutOfCubes?.Invoke();

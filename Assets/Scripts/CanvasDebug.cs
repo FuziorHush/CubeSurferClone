@@ -23,7 +23,7 @@ public class CanvasDebug : MonoBehaviour
         HorizontalText.text = Input.GetAxis("Horizontal").ToString();
     }
 
-   private void UpdateNumCubesText() {
+   private void UpdateNumCubesText(int numCubes) {
         PlayerNumCubesText.text = PlayerCubes.NumCubes.ToString();
     }
 }

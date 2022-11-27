@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4335355717000644554
 Transform:
@@ -68,9 +68,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4335355717000644554}
     m_Modifications:
+    - target: {fileID: 955155494320084032, guid: 1eb82193723e9d5488600b744fefd260, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589711708704048325, guid: 1eb82193723e9d5488600b744fefd260, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3733828724656856017, guid: 1eb82193723e9d5488600b744fefd260, type: 3}
       propertyPath: m_Name
       value: ObstacleCubeModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733828724656856017, guid: 1eb82193723e9d5488600b744fefd260, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7208859966979477285, guid: 1eb82193723e9d5488600b744fefd260, type: 3}
       propertyPath: m_RootOrder

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class WindowsSystem : MonoBehaviour
 {
@@ -38,7 +39,8 @@ public class WindowsSystem : MonoBehaviour
 
         _openedWindow = _pauseWindow;
         _pauseWindow.SetActive(true);
-        //PauseWindow.GetComponent<PauseWindow>().OpenInit();
+        _pauseWindow.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, -1600f), 0.5f).SetEase(Ease.InOutQuint).SetUpdate(true).From();
+        _pauseWindow.GetComponent<PauseWindow>().OpenInit(DataSystem.Instance.CurrentLevel);
     }
 
     public void OpenWinWindow(int prize, int sceneToLoad)
@@ -56,27 +58,24 @@ public class WindowsSystem : MonoBehaviour
         if (_openedWindow == _looseWindow)
             return;
 
-        if (!_gamePaused)
-            PauseGame();
-
         _openedWindow = _looseWindow;
         _looseWindow.SetActive(true);
-        //LooseWindow.GetComponent<LooseWindow>().OpenInit();
+        _looseWindow.GetComponent<LooseWindow>().OpenInit(DataSystem.Instance.CurrentLevel);
     }
 
     public void PauseGame()
     {
         _gamePaused = true;
         Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+       // Cursor.lockState = CursorLockMode.None;
+       // Cursor.visible = true;
     }
 
     public void UnpauseGame()
     {
         _gamePaused = false;
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       // Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.visible = false;
     }
 }

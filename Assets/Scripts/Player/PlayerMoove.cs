@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMoove : MonoBehaviour
 {
-    [SerializeField] private Vector3 _mooveVector;
+    private float _horizontalMoove;
 
-    public float MooveSpeed => _mooveSpeed;
+    public float MooveSpeed {
+        get => _mooveSpeed;
+        set {
+            value = Mathf.Clamp(value, 0f, 100f);
+            _mooveSpeed = value;
+            _actualMooveSpeed = _mooveSpeed / 50f; ;
+        }
+    }
+
     [SerializeField] private float _mooveSpeed;// meters/sec
     [SerializeField] private float _strafeSpeed;// meters/sec
     private float _actualMooveSpeed;// meters/FixedUpdate
@@ -25,34 +34,22 @@ public class PlayerMoove : MonoBehaviour
     private void FixedUpdate()
     {
         if(_canMoove)
-        transform.Translate(_mooveVector * _actualMooveSpeed);
+        transform.Translate(_horizontalMoove * _actualStrafeSpeed, 0f, _actualMooveSpeed);
     }
 
-    public void SetMoove(float horizontal) {
+    public void SetHorizontal(float horizontal) {
         if (_canMoove)
-            transform.Translate(new Vector3(horizontal * _actualStrafeSpeed, 0,0));
+            _horizontalMoove = horizontal;
     }
 
     public void Turn(TurnSide turnSide) {
         if (turnSide == TurnSide.Left)
-        {
-            StartCoroutine(RotateSmooth(-90f));
-        }
-        else {
-            StartCoroutine(RotateSmooth(90f));
-        }
+            transform.DOBlendableLocalRotateBy(new Vector3(0f, -90f, 0f), 1f);
+        else
+            transform.DOBlendableLocalRotateBy(new Vector3(0f, 90f, 0f), 1f);
     }
 
     public void DeactivateMooving() {
         _canMoove = false;
-    }
-
-    private IEnumerator RotateSmooth(float degree) {
-        Quaternion target = Quaternion.Euler(0f, transform.eulerAngles.y + degree, 0f);
-        while (true)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, 3f);
-            yield return new WaitForFixedUpdate();
-        }
     }
 }

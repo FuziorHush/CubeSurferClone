@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LooseWindow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Button _tryAgainButton = null;
+    [SerializeField] private Button _mainMenuButton = null;
+
+    private int _sceneToLoad;
+
+    private void Awake()
     {
-        
+        _tryAgainButton.onClick.AddListener(TryAgain);
+        _mainMenuButton.onClick.AddListener(MainMenu);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OpenInit(int sceneToLoad)
     {
-        
+        _sceneToLoad = sceneToLoad;
+    }
+
+    private void TryAgain()
+    {
+        SceneManager.LoadScene(_sceneToLoad);
+    }
+
+    private void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
