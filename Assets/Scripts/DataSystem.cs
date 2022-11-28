@@ -23,12 +23,11 @@ public class DataSystem : MonoBehaviour
     public UnityAction<int> LevelChanged;
     public UnityAction<int, int, Transform> CurrencyAdded;
 
-    private void Awake()
+    public void Init()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
 #if UNITY_EDITOR
@@ -93,6 +92,12 @@ public class DataSystem : MonoBehaviour
 
     public LevelUnlockData[] GetLevelsData() {
         return (LevelUnlockData[])_save.LevelsUnlockData.Clone();
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if(level != 0)
+        _save.CurrentLevel = level - 1;
     }
 }
 

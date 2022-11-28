@@ -24,11 +24,13 @@ public class LooseWindow : MonoBehaviour
 
     private void TryAgain()
     {
+        WindowsSystem.Instance.CloseCurrentWindow();
         SceneManager.LoadScene(_sceneToLoad);
     }
 
     private void MainMenu()
     {
+        WindowsSystem.Instance.CloseCurrentWindow();
         SceneManager.LoadScene(0);
     }
 }

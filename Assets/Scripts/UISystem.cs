@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class UISystem : MonoBehaviour
 {
+    public static UISystem Instance;
+
     [SerializeField] private Button _pauseButton = null;
     [SerializeField] private CanvasGroup _currency = null;
     [SerializeField] private Text _currencyText = null;
@@ -15,8 +17,11 @@ public class UISystem : MonoBehaviour
 
     private Transform _currencyAnimStartPosition;
 
-    private void Start()
+    public void Init()
     {
+        if (Instance == null)
+            Instance = this;
+
         _currency.alpha = 0;
         _currencyIconPool.InitPool(100);
 
@@ -35,6 +40,18 @@ public class UISystem : MonoBehaviour
         }
 
         ShowCurrencyGroup(currentCurrency, added);
+    }
+
+    public void ActivateUI()
+    {
+        if (!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level == 0)
+            gameObject.SetActive(false);
     }
 
     private IEnumerator AddCurrencyAnimation(int amount)

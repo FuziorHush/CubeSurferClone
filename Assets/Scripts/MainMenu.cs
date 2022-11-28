@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
             levelButton.SetData(levelUnlocks[i]);
 
             int id = i;
+            if(levelUnlocks[i].Unlocked)
             levelButton.Button.onClick.AddListener(delegate { LoadLevel(id); });
         }
     }

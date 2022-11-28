@@ -28,11 +28,13 @@ public class WinWindow : MonoBehaviour
     }
 
     private void NextLevel() {
+        WindowsSystem.Instance.CloseCurrentWindow();
         SceneManager.LoadScene(_sceneToLoad);
     }
 
     private void MainMenu()
     {
+        WindowsSystem.Instance.CloseCurrentWindow();
         SceneManager.LoadScene(0);
     }
 }

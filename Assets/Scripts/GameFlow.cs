@@ -25,12 +25,14 @@ public class GameFlow : MonoBehaviour
                 _playerMoove.MooveSpeed = _setPlayerSpeed;
             }
         }
+
+        UISystem.Instance.ActivateUI();
     }
 
     private void LevelWin()
     {
         int level = DataSystem.Instance.IncreaceLevel();
-        WindowsSystem.Instance.OpenWinWindow(_currencyForWin, level);
+        WindowsSystem.Instance.OpenWinWindow(_currencyForWin, level+1);
         DataSystem.Instance.SaveGame();
     }
 

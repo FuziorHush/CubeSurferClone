@@ -40,7 +40,7 @@ public class WindowsSystem : MonoBehaviour
         _openedWindow = _pauseWindow;
         _pauseWindow.SetActive(true);
         _pauseWindow.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, -1600f), 0.5f).SetEase(Ease.InOutQuint).SetUpdate(true).From();
-        _pauseWindow.GetComponent<PauseWindow>().OpenInit(DataSystem.Instance.CurrentLevel);
+        _pauseWindow.GetComponent<PauseWindow>().OpenInit(DataSystem.Instance.CurrentLevel+1);
     }
 
     public void OpenWinWindow(int prize, int sceneToLoad)
@@ -60,7 +60,7 @@ public class WindowsSystem : MonoBehaviour
 
         _openedWindow = _looseWindow;
         _looseWindow.SetActive(true);
-        _looseWindow.GetComponent<LooseWindow>().OpenInit(DataSystem.Instance.CurrentLevel);
+        _looseWindow.GetComponent<LooseWindow>().OpenInit(DataSystem.Instance.CurrentLevel+1);
     }
 
     public void PauseGame()

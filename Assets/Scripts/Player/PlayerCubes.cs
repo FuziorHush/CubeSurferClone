@@ -11,7 +11,7 @@ public class PlayerCubes : MonoBehaviour
     [SerializeField] private AudioClip _looseCubesSound = null;
 
     private PlayerMoove _playerMoove;
-    private AudioSource _audioSource;
+    private PlayerSounds _playerSounds;
 
     [SerializeField] private int _maxCubes = 20;
     [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();//TODO: SerializeField For Debug
@@ -34,7 +34,7 @@ public class PlayerCubes : MonoBehaviour
     private void Awake()
     {
         _playerMoove = GetComponent<PlayerMoove>();
-        _audioSource = GetComponent<AudioSource>();
+        _playerSounds = GetComponent<PlayerSounds>();
     }
 
     private void Start()
@@ -62,7 +62,7 @@ public class PlayerCubes : MonoBehaviour
             CubeAdded?.Invoke(NumCubes);
         }
         if(playSound)
-        _audioSource.PlayOneShot(_addCubesSound);
+            _playerSounds.PlayOneInFrame(_addCubesSound);
     }
 
     public void StoreHit(int numCubes)//Если несколько коллайдеров одновременно сталкиваются с игроком, выбирается тот, который снимет больше всего
@@ -99,7 +99,7 @@ public class PlayerCubes : MonoBehaviour
             CubeRemoved?.Invoke(NumCubes);
         }
         if (playSound)
-            _audioSource.PlayOneShot(_looseCubesSound);
+            _playerSounds.PlayOneInFrame(_looseCubesSound);
 
         if (_activeCubes.Count == 0) {
             OutOfCubes?.Invoke();
