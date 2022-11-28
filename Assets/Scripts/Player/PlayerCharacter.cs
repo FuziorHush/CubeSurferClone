@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
@@ -7,7 +5,6 @@ public class PlayerCharacter : MonoBehaviour
     private PlayerCubes _playerCubes;
     [SerializeField] private LayerMask _cubesLM = new LayerMask();
     [SerializeField] private Transform _characterModel = null;
-    [SerializeField] private float _characterMooveSpeed = 0.25f;
     [SerializeField] private float _cubeHeightStep = 0.75f;
 
     [SerializeField] private Animator _animator = null;

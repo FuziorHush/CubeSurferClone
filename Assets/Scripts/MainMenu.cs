@@ -17,6 +17,12 @@ public class MainMenu : MonoBehaviour
         _currencyText.text = DataSystem.Instance.CurrentCurrency.ToString();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+    }
+
     private void CreateLevelButtons()
     {
         LevelUnlockData[] levelUnlocks = DataSystem.Instance.GetLevelsData();

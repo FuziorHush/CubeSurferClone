@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,6 +13,8 @@ public class ScreenInput : MonoBehaviour
  public Events.Vector2 OnSwipe = new Events.Vector2();*/
 
     private PlayerMoove _playerMoove;
+
+    public float ScreenHorizontal;
 
     private void Awake()
     {
@@ -44,15 +44,26 @@ public class ScreenInput : MonoBehaviour
         OnSwipe.Invoke(direction);
     }*/
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (Input.touchCount == 1) {
-            Debug.Log("s");
+        if (Input.touchCount == 1)
+        {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Moved) {
-                _playerMoove.SetHorizontal(touch.deltaPosition.x);
+            if (touch.phase == TouchPhase.Moved)
+            {
+                ScreenHorizontal = Mathf.Clamp(touch.deltaPosition.x * 0.04f, -1.7f, 1.7f);
+                _playerMoove.SetHorizontal(ScreenHorizontal);
             }
+            else
+            {
+                ScreenHorizontal = 0f;
+                _playerMoove.SetHorizontal(ScreenHorizontal);
+            }
+        }
+        else {
+            ScreenHorizontal = 0f;
+            _playerMoove.SetHorizontal(ScreenHorizontal);
         }
     }
 }

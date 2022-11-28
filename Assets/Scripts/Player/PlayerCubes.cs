@@ -52,6 +52,9 @@ public class PlayerCubes : MonoBehaviour
     {
         for (int i = 0; i < numCubes; i++)
         {
+            if (NumCubes >= _maxCubes)
+                return;
+
             GameObject cube = _cubesPool.GetInactivePoolObject().gameObject;
             cube.transform.localPosition = new Vector3(0, _currentHeight, 0);
             cube.transform.localRotation = Quaternion.identity;

@@ -19,6 +19,12 @@ public class WindowsSystem : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            OpenPauseWindow();
+    }
+
     public void CloseCurrentWindow()
     {
         _openedWindow.SetActive(false);
@@ -31,7 +37,7 @@ public class WindowsSystem : MonoBehaviour
 
     public void OpenPauseWindow()
     {
-        if (_openedWindow == _pauseWindow)
+        if (_openedWindow != null)
             return;
 
         if (!_gamePaused)

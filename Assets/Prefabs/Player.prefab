@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4246801890053655947}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ac7d4814d2055946b7b4f04551a7656, type: 3}
   m_Name: 
@@ -269,7 +269,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _characterModel: {fileID: 4246801890517595738}
-  _characterMooveSpeed: 0.7
   _cubeHeightStep: 0.75
   _animator: {fileID: 141712126668696836}
 --- !u!114 &4246801890053655988
@@ -298,7 +297,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.8, z: 1}
+  m_Size: {x: 0.925, y: 0.8, z: 1}
   m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!54 &4246801890053655987
 Rigidbody:
@@ -314,7 +313,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 0
   m_CollisionDetection: 3
 --- !u!114 &4246801890053655986
 MonoBehaviour:
@@ -328,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dec9ed6cd2cb714e843ddbb8910e106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScreenHorizontal: 0
 --- !u!114 &6987328542147900310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,7 +496,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.925, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &4246801892017313481
 GameObject:

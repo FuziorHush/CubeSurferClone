@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PlayerMoove : MonoBehaviour
 {
+    public float HorizontalMoove => _horizontalMoove;
     private float _horizontalMoove;
 
     public float MooveSpeed {

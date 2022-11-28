@@ -5,25 +5,39 @@ using UnityEngine.UI;
 
 public class CanvasDebug : MonoBehaviour
 {
-    [SerializeField] private PlayerCubes PlayerCubes = null;
+    [SerializeField] private GameObject Player = null;
 
-    [SerializeField] private Text HorizontalText = null;
+    private PlayerCubes _playerCubes;
+    private PlayerMoove _playerMoove;
+    private ScreenInput _screenInput;
+
+    [SerializeField] private Text ScreenHorizontalText = null;
+    [SerializeField] private Text PlayerHorizontalText = null;
     [SerializeField] private Text PlayerNumCubesText = null;
 
     private void Start()
     {
-        if (PlayerCubes != null) {
-            PlayerCubes.CubeAdded += UpdateNumCubesText;
-            PlayerCubes.CubeRemoved += UpdateNumCubesText;
+        _playerCubes = Player.GetComponent<PlayerCubes>();
+        if (_playerCubes != null) {
+            _playerCubes.CubeAdded += UpdateNumCubesText;
+            _playerCubes.CubeRemoved += UpdateNumCubesText;
         }
+
+        _playerMoove = Player.GetComponent<PlayerMoove>();
+        _screenInput = Player.GetComponent<ScreenInput>();
+
     }
 
     void Update()
     {
-        HorizontalText.text = Input.GetAxis("Horizontal").ToString();
+        if (_playerMoove != null)
+            PlayerHorizontalText.text = _playerMoove.HorizontalMoove.ToString();
+
+        if (_screenInput != null)
+            ScreenHorizontalText.text = _screenInput.ScreenHorizontal.ToString();
     }
 
    private void UpdateNumCubesText(int numCubes) {
-        PlayerNumCubesText.text = PlayerCubes.NumCubes.ToString();
+        PlayerNumCubesText.text = numCubes.ToString();
     }
 }
