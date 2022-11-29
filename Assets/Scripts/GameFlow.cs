@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameFlow : MonoBehaviour
@@ -10,7 +9,7 @@ public class GameFlow : MonoBehaviour
     [SerializeField] private int _currencyForWin = 0;
 
     [SerializeField] private PlayerMoove _playerMoove = null;
-    [SerializeField] private float _setPlayerSpeed = 0;//if 0 does not sets
+    [SerializeField] private float _setPlayerSpeed = 0;//if 0 does not set
 
     private void Start()
     {
@@ -26,7 +25,7 @@ public class GameFlow : MonoBehaviour
             }
         }
 
-        UISystem.Instance.ActivateUI();
+        UISystem.Instance.ActivateUI();//enable UI if disabled in the inspector
     }
 
     private void LevelWin()

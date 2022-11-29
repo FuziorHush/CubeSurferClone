@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolElement : MonoBehaviour
@@ -13,7 +12,8 @@ public class PoolElement : MonoBehaviour
         _parent = transform.parent;
     }
 
-    public void UnattachAndReturnWithDelay(float delay = 0) {
+    public void UnattachAndReturnWithDelay(float delay = 0)//return into pool with delay
+    {
         if (delay == 0)
         {
             ReturnIntoPool();
@@ -28,11 +28,13 @@ public class PoolElement : MonoBehaviour
             return;
     }
 
-    public void ReturnIntoPool() {
+    public void ReturnIntoPool()
+    {
         gameObject.SetActive(false);
     }
 
-    private IEnumerator DeactivateDelay(float delay) {
+    private IEnumerator DeactivateDelay(float delay)
+    {
         yield return new WaitForSeconds(delay);
         gameObject.transform.SetParent(_parent);
         gameObject.tag = _startTag;

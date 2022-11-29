@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnTrigger : MonoBehaviour
@@ -10,7 +8,7 @@ public class TurnTrigger : MonoBehaviour
     {
         PlayerMoove playerMoove = other.GetComponent<PlayerMoove>();
         if (playerMoove != null) {
-            playerMoove.Turn(_turnSide);
+            playerMoove.Turn90(_turnSide);
             Destroy(gameObject);
         }
     }

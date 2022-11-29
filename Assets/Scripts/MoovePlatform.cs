@@ -26,14 +26,15 @@ public class MoovePlatform : MonoBehaviour
 
     private IEnumerator MooveCycle()
     {
-        for (int i = 0; i < _cubes.Length; i++)
+        for (int i = 0; i < _cubes.Length; i++)//goes to the first pos from the start pos
         {
             if(_cubes[i] != null)
             _cubes[i].DOLocalMove(new Vector3(_cubes[i].localPosition.x + _firstMooveSnap, 0f, 0f), _firstMooveTime);
         }
         yield return new WaitForSeconds(_firstMooveTime);
 
-        while (true) {
+        while (true) //goen to the second pos, then to the first exc...
+        {
             for (int i = 0; i < _cubes.Length; i++)
             {
                 if (_cubes[i] != null)

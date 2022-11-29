@@ -19,14 +19,16 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
+        SetGroundedAnimation();
+    }
+
+    private void SetGroundedAnimation()
+    {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.1f, _cubesLM);
         if (colliders.Length > 0)
-        {
             _animator.SetBool("Grounded", true);
-        }
-        else {
+        else
             _animator.SetBool("Grounded", false);
-        }
     }
 
     private void MoovePlayer(int numCubes) {

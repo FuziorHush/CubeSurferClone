@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -15,13 +13,17 @@ public class PlayerCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_collectableCubeLayerMask == (_collectableCubeLayerMask | (1 << other.gameObject.layer)))
+        if (_collectableCubeLayerMask == (_collectableCubeLayerMask | (1 << other.gameObject.layer)))//collectable or obstacle cube
         {
-            ICubeObject collectableCube = other.GetComponent<ICubeObject>();
-            if (collectableCube != null)
-            {
-                collectableCube.TouchedByPlayer(_playerCubes);
-            }
+            InteractWithCube(other.gameObject);
+        }
+    }
+
+    private void InteractWithCube(GameObject cube) {
+        ICubeObject collectableCube = cube.GetComponent<ICubeObject>();
+        if (collectableCube != null)
+        {
+            collectableCube.TouchedByPlayer(_playerCubes);
         }
     }
 }

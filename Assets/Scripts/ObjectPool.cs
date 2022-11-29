@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,13 +18,9 @@ public class ObjectPool : MonoBehaviour
     public PoolElement GetInactivePoolObject()
     {
         if (TryGetObject(out PoolElement poolElement))
-        {
             return poolElement;
-        }
         else
-        {
             return null;
-        }
     }
 
     public bool TryGetObject(out PoolElement element)//Возвращает первый элемент из пула, который неактивен и не на таймере деактивации

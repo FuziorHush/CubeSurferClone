@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +7,7 @@ public class DataSystem : MonoBehaviour
 
     private int _numLevels = 6;
 
-    private GameSave _save;
+    private GameSave _save;//save loads when the game starts and existing all time
 
     private bool _saveLoaded;
     public bool SaveLoaded => _saveLoaded;
@@ -26,9 +24,7 @@ public class DataSystem : MonoBehaviour
     public void Init()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
 
 #if UNITY_EDITOR
         if (_remakeSaveFile)
@@ -38,12 +34,14 @@ public class DataSystem : MonoBehaviour
         LoadGame();
     }
 
-    public int IncreaceLevel() {
+    public int IncreaceLevel()
+    {
         if (_save.CurrentLevel == _numLevels - 1)
         {
             _save.CurrentLevel = 2;
         }
-        else {
+        else
+        {
             _save.CurrentLevel++;
             _save.LevelsUnlockData[CurrentLevel].Unlocked = true;
         }
@@ -85,9 +83,12 @@ public class DataSystem : MonoBehaviour
 
     public void LoadGame()
     {
-        _save = SaveFileOperator.LoadGame();
-        _saveLoaded = true;
-        SaveFileLoaded?.Invoke(_save);
+        _save = (GameSave)SaveFileOperator.LoadGame();
+        if (_save != null)
+        {
+            _saveLoaded = true;
+            SaveFileLoaded?.Invoke(_save);
+        }
     }
 
     public LevelUnlockData[] GetLevelsData() {
@@ -102,7 +103,7 @@ public class DataSystem : MonoBehaviour
 }
 
 [System.Serializable]
-public class GameSave
+public class GameSave : IGameSave
 {
     public LevelUnlockData[] LevelsUnlockData;
     public int CurrentLevel;

@@ -22,7 +22,7 @@ public class PlayerSounds : MonoBehaviour
         _audioSource.PlayOneShot(clip, volume);
     }
 
-    public void PlayOneInFrame(AudioClip clip, float volume = 1f)
+    public void PlayOneInFrame(AudioClip clip, float volume = 1f)//если игрок одновременно подбирает куб и сталкивается с препятствием, проигрываются оба звука одновременно, и искажаются. Проиграть только один из них
     {
         if (!_clipPlayedThisFrame)
         {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraDistance : MonoBehaviour
@@ -15,6 +13,4 @@ public class CameraDistance : MonoBehaviour
         Vector3 newPos = new Vector3(0f, _distancingY * _playerCubes.NumCubes, _distancingZ * _playerCubes.NumCubes);
         transform.localPosition = Vector3.Lerp(transform.localPosition, newPos, Time.deltaTime * _tranzitionSpeed);
     }
-
-
 }

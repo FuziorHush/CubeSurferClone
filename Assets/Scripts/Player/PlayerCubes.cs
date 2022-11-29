@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerCubes : MonoBehaviour
 {
     [SerializeField] private GameObject _cubePrefab = null;
-    [SerializeField] private GameObject _cubeApperEffect = null;
+    [SerializeField] private GameObject _cubeApperEffect = null;//particles when player gets cube
     [SerializeField] private AudioClip _addCubesSound = null;
     [SerializeField] private AudioClip _looseCubesSound = null;
 
@@ -14,14 +14,14 @@ public class PlayerCubes : MonoBehaviour
     private PlayerSounds _playerSounds;
 
     [SerializeField] private int _maxCubes = 20;
-    [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();//TODO: SerializeField For Debug
+    [SerializeField] private List<GameObject> _activeCubes = new List<GameObject>();
     public int NumCubes => _activeCubes.Count;
 
     [SerializeField] private ObjectPool _cubesPool;
 
     [SerializeField] private float _cubeHeightStep = 0.75f;
 
-    private int _maxHit;
+    private int _maxHit;//biggest obstacle touched in one frame
     private bool _immuneToObstacles;
 
     public float CurrentHeight => _currentHeight;
@@ -74,22 +74,20 @@ public class PlayerCubes : MonoBehaviour
             return;
 
         if (numCubes > _maxHit)
-        {
             _maxHit = numCubes;
-        }
     }
 
-    public void RemoveCubes(int numCubes, bool unattach = true, bool playSound = true)
+    public void RemoveCubes(int numCubesToRemove, bool unattach = true, bool playSound = true)
     {
         if (_activeCubes.Count == 0)
             return;
 
-        if (numCubes > _activeCubes.Count)
-            numCubes = _activeCubes.Count;
+        if (numCubesToRemove > _activeCubes.Count)
+            numCubesToRemove = _activeCubes.Count;
 
-        _currentHeight -= _cubeHeightStep * numCubes;
+        _currentHeight -= _cubeHeightStep * numCubesToRemove;
 
-        for (int i = 0; i < numCubes; i++)
+        for (int i = 0; i < numCubesToRemove; i++)
         {
             GameObject cube = _activeCubes[0];
             _activeCubes.Remove(cube);

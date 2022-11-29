@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -43,7 +41,7 @@ public class PlayerMoove : MonoBehaviour
             _horizontalMoove = horizontal;
     }
 
-    public void Turn(TurnSide turnSide) {
+    public void Turn90(TurnSide turnSide) {
         if (turnSide == TurnSide.Left)
             transform.DOBlendableLocalRotateBy(new Vector3(0f, -90f, 0f), 1f);
         else

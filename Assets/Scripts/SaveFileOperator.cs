@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveFileOperator : MonoBehaviour
 {
-    private static string GameSavePath;
+    private static readonly string _gameSavePath;
 
     static SaveFileOperator()
     {
-        GameSavePath = Application.persistentDataPath + "/gamesave.save";
+        _gameSavePath = Application.persistentDataPath + "/gamesave.save";
     }
 
-    public static bool SaveGame(GameSave gameSave)
+    public static bool SaveGame(IGameSave gameSave)
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream fileStream = new FileStream(GameSavePath, FileMode.Create);
+        FileStream fileStream = new FileStream(_gameSavePath, FileMode.Create);
 
         try
         {
             binaryFormatter.Serialize(fileStream, gameSave);
             fileStream.Close();
-            Debug.Log("Game saved " + GameSavePath);
+            Debug.Log("Game saved " + _gameSavePath);
             return true;
         }
         catch (System.Exception)
@@ -33,25 +31,23 @@ public class SaveFileOperator : MonoBehaviour
         }
     }
 
-    public static GameSave LoadGame()
+    public static IGameSave LoadGame()
     {
-        if (!File.Exists(GameSavePath))
+        if (!File.Exists(_gameSavePath))
         {
             if (DataSystem.Instance != null)
-            {
                 DataSystem.Instance.CreateDefaultGameSave();
-            }
         }
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream fileStream = new FileStream(GameSavePath, FileMode.Open);
+        FileStream fileStream = new FileStream(_gameSavePath, FileMode.Open);
 
-        GameSave gameSave;
+        IGameSave gameSave;
         try
         {
-            gameSave = (GameSave)binaryFormatter.Deserialize(fileStream);
+            gameSave = (IGameSave)binaryFormatter.Deserialize(fileStream);
             fileStream.Close();
-            Debug.Log("Game loaded " + GameSavePath);
+            Debug.Log("Game loaded " + _gameSavePath);
             return gameSave;
         }
         catch (System.Exception)

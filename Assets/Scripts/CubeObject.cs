@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeObject : MonoBehaviour
@@ -10,7 +9,7 @@ public class CubeObject : MonoBehaviour
     [SerializeField] private float _cubeHeightStep = 0.75f;
     private float _currentHeight;
 
-    private void OnValidate()
+    private void OnValidate()//spawn new cubes on top of first in editor
     {
         if (NumCubes != transform.childCount)
         {
@@ -28,14 +27,14 @@ public class CubeObject : MonoBehaviour
 
     private void PlaceCubesByAmount()
     {
-        for (int i = transform.childCount - 1; i > 0; i--)
+        for (int i = transform.childCount - 1; i > 0; i--)//destroy existing cubes
         {
             StartCoroutine(Destroy(transform.GetChild(i).gameObject));
         }
 
         _currentHeight = _cubeHeightStep * 1.5f;
 
-        for (int i = 1; i < NumCubes; i++)
+        for (int i = 1; i < NumCubes; i++)//spawn new
         {
             GameObject cube = Instantiate(_cubeModelPrefab, transform);
             cube.transform.localPosition = new Vector3(0, _currentHeight, 0);
