@@ -328,6 +328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScreenHorizontal: 0
+  _speedModifier: 0.04
+  _maxHorizontalSpeed: 1.7
 --- !u!114 &6987328542147900310
 MonoBehaviour:
   m_ObjectHideFlags: 0

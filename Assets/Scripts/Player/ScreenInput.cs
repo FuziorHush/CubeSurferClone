@@ -4,7 +4,10 @@ public class ScreenInput : MonoBehaviour
 {
     private PlayerMoove _playerMoove;
 
-    public float ScreenHorizontal;
+    [HideInInspector]public float ScreenHorizontal;
+
+    [SerializeField] private float _speedModifier = 0.04f;
+    [SerializeField] private float _maxHorizontalSpeed = 1.7f;
 
     private void Awake()
     {
@@ -19,7 +22,7 @@ public class ScreenInput : MonoBehaviour
 
             if (touch.phase == TouchPhase.Moved)
             {
-                ScreenHorizontal = Mathf.Clamp(touch.deltaPosition.x * 0.04f, -1.7f, 1.7f);
+                ScreenHorizontal = Mathf.Clamp(touch.deltaPosition.x * _speedModifier, -_maxHorizontalSpeed, _maxHorizontalSpeed);
                 _playerMoove.SetHorizontal(ScreenHorizontal);
             }
             else
